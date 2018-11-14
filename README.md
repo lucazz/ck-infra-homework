@@ -46,6 +46,8 @@ In order to deploy this stack localy, you can just use the `Makefile` to get it 
 The app can be reached on [http://localhost:3000](http://localhost:3000). You can check out all the other stuff you can do w/ our `Makefile` by issuing a `make` at the root of the repo.
 
 ### Deploying this stack to Production
+I've already built and pushed (`make build` and `make push`) this app into a docker image. [You can check it out here](https://hub.docker.com/r/lucazz/convertkit/). In order to save us some time, we'll be using this image to deploy our application. 
+
 In order to deploy this stack, you have to generate our SSL certficates first. To do so, cd into the `terraform/cfssl/` directory and generate our own self-signed CA e certs:
 
     cd terraform/modules/ssl/cfssl/
