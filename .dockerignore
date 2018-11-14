@@ -1,0 +1,7 @@
+docker-compose.yaml
+Dockerfile
+README.md
+.gitignore
+terraform/*
+.mysql/
+docs/
