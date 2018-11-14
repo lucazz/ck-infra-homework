@@ -27,3 +27,5 @@
 
 # Terraform
 terraform/.terraform/
+terraform/modules/ssl/cfssl/*.pem
+terraform/modules/ssl/cfssl/*.csr
