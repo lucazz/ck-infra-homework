@@ -1,0 +1,40 @@
+#cloud-config
+hostname: "${hostname}"
+ssh_authorized_keys:
+  - "${authorizend_keys}"
+coreos:
+  units:
+    - name: "convertkit.service"
+      command: "start"
+      enable: true
+      content: |
+        [Unit]
+        Description=Rails App container service
+        After=docker.service
+        [Service]
+        User=core
+        TimeoutStartSec=0
+        Restart=always
+        RestartSec=10
+        ExecStartPre=/usr/bin/docker pull lucazz/convertkit:${docker_tag}
+        ExecStartPre=/usr/bin/docker run --rm --name migrations \
+            -e SECRET_KEY_BASE=${secret_key_name} \
+            -e DB_HOST=${db_address} \
+            -e DB_NAME=${db_name} \
+            -e DB_USERNAME=${db_username} \
+            -e DB_PASSWORD=${db_password} \
+            -e DB_PORT=${db_port} \
+            lucazz/convertkit:${docker_tag} \
+            /opt/app/bin/migrations
+        ExecStart=/usr/bin/docker run --rm --name convertkit \
+            -e SECRET_KEY_BASE=${secret_key_name} \
+            -e DB_HOST=${db_address} \
+            -e DB_NAME=${db_name} \
+            -e DB_USERNAME=${db_username} \
+            -e DB_PASSWORD=${db_password} \
+            -e DB_PORT=${db_port}\
+            -p 3000:3000 \
+            lucazz/convertkit:${docker_tag}
+        ExecStop=/usr/bin/docker stop convertkit.service
+        [Install]
+        WantedBy=multi-user.target
