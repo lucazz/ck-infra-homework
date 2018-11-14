@@ -21,3 +21,11 @@
 /yarn-error.log
 
 .byebug_history
+
+# Mysql docker container (local development) files
+.mysql/
+
+# Terraform
+terraform/.terraform/
+terraform/modules/ssl/cfssl/*.pem
+terraform/modules/ssl/cfssl/*.csr

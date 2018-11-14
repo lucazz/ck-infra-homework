@@ -1,0 +1,3 @@
+#!/bin/bash
+${WORKDIR}/bin/wait-for-it ${DB_HOST}:${DB_PORT}
+bundle exec puma -C ${WORKDIR}/config/puma.rb
