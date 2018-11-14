@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  migrations:
+    image: lucazz/convertkit:latest
+    restart: always
+    container_name: migrations
+    command: ["/opt/app/bin/migrations"]
+    restart: on-failure
+    environment:
+      SECRET_KEY_BASE: "ohkohsh4ieThu2iec7ieyohph2uqu4uLae2Ahtaic1iezub6FeeG3ohcah4waic4cheirohphaiXeuxeisoo0Cool1mooyahfoo3eis1EiBafeilaYujior5ChuihaeC"
+      DB_HOST: "mysql"
+      DB_NAME: "convertkit"
+      DB_USERNAME: "convertkit"
+      DB_PASSWORD: "s3cr37!"
+      DB_PORT: "3306"
+    links:
+      - mysql
+  app:
+    image: lucazz/convertkit:latest
+    restart: always
+    container_name: app
+    restart: always
+    environment:
+      SECRET_KEY_BASE: "ohkohsh4ieThu2iec7ieyohph2uqu4uLae2Ahtaic1iezub6FeeG3ohcah4waic4cheirohphaiXeuxeisoo0Cool1mooyahfoo3eis1EiBafeilaYujior5ChuihaeC"
+      DB_HOST: "mysql"
+      DB_NAME: "convertkit"
+      DB_USERNAME: "convertkit"
+      DB_PASSWORD: "s3cr37!"
+      DB_PORT: "3306"
+    ports:
+      - '3000:3000'
+    links:
+      - mysql
+  mysql:
+    image: mysql:8.0.13
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_USER: "convertkit"
+      MYSQL_PASSWORD: "s3cr37!"
+      MYSQL_DATABASE: "convertkit"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - '.mysql/:/var/lib/mysql'
