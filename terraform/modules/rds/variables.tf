@@ -30,7 +30,7 @@ variable "multi_az" {
 
 variable "skip_final_snapshot" {
 	type = "string"
-	default = "false"
+	default = "true"
 }
 
 variable "final_snapshot_identifier" {
