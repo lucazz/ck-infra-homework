@@ -24,3 +24,6 @@
 
 # Mysql docker container (local development) files
 .mysql/
+
+# Terraform
+terraform/.terraform/
